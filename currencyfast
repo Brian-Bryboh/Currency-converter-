@@ -1,0 +1,19 @@
+Converts between USD, EUR, and INR using hardcoded conversion rates.
+
+Users enter an amount, select the currencies, and click "Convert" to see the result.
+
+
+
+
+Running the Application:
+
+1. Compile all the Java files:
+
+javac Notepad.java CurrencyConverter.java Main.java
+
+
+2. Run the Main class:
+
+java Main
+
+
