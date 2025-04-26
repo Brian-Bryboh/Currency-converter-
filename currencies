@@ -1,0 +1,67 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class CurrencyConverter extends JFrame {
+
+    JTextField amountField, resultField;
+    JComboBox<String> currencyFrom, currencyTo;
+    JButton convertButton;
+    JLabel resultLabel;
+
+    public CurrencyConverter() {
+        setTitle("Currency Converter");
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new FlowLayout());
+
+        JLabel amountLabel = new JLabel("Amount:");
+        amountField = new JTextField(10);
+        currencyFrom = new JComboBox<>(new String[]{"USD", "EUR", "INR"});
+        currencyTo = new JComboBox<>(new String[]{"USD", "EUR", "INR"});
+        convertButton = new JButton("Convert");
+        resultLabel = new JLabel("Result:");
+        resultField = new JTextField(10);
+        resultField.setEditable(false);
+
+        add(amountLabel);
+        add(amountField);
+        add(new JLabel("From:"));
+        add(currencyFrom);
+        add(new JLabel("To:"));
+        add(currencyTo);
+        add(convertButton);
+        add(resultLabel);
+        add(resultField);
+
+        convertButton.addActionListener(e -> convertCurrency());
+    }
+
+    private void convertCurrency() {
+        double amount = Double.parseDouble(amountField.getText());
+        String fromCurrency = (String) currencyFrom.getSelectedItem();
+        String toCurrency = (String) currencyTo.getSelectedItem();
+        double result = 0;
+
+        // Hardcoded exchange rates
+        if (fromCurrency.equals("USD") && toCurrency.equals("EUR")) {
+            result = amount * 0.85;
+        } else if (fromCurrency.equals("USD") && toCurrency.equals("INR")) {
+            result = amount * 74.5;
+        } else if (fromCurrency.equals("EUR") && toCurrency.equals("USD")) {
+            result = amount * 1.18;
+        } else if (fromCurrency.equals("EUR") && toCurrency.equals("INR")) {
+            result = amount * 88.5;
+        } else if (fromCurrency.equals("INR") && toCurrency.equals("USD")) {
+            result = amount * 0.013;
+        } else if (fromCurrency.equals("INR") && toCurrency.equals("EUR")) {
+            result = amount * 0.011;
+        }
+
+        resultField.setText(String.format("%.2f", result));
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new CurrencyConverter().setVisible(true));
+    }
+}
